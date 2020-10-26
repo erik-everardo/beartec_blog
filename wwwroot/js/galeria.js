@@ -40,16 +40,6 @@ function definirAlturaListaDeImagenes() {
     document.getElementById("cuadro_izq_galeria").style.maxHeight = document.getElementById("lista_imagenes").style.maxHeight;
 }
 
-//funcion para abrir vista previa de una imagen
-function vistaPreviaImagen(url) {
-    //pantalla de movil: ocultar cuadro de vista previa y abrir en nueva penstaña la imagen
-    if (window.innerWidth<=768) {
-        window.open(url,"_blank");
-    } else {
-        document.getElementById("vista_previa_imagen_galeria").innerHTML = 
-            "<a href='" + url + "' target='_blank'><img class='w-100' src='" + url + "'></a>"
-    }
-}
 var inputFile = document.querySelector("#archivo_imagen_propia");
 
 $('#btn_subir_imagen_propia').on('click',function(){
