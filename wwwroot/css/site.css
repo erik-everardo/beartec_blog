@@ -308,3 +308,11 @@ button.accept-policy {
     margin: 0;
     padding: 8px;
 }
+
+.custom-card-gallery:hover{
+    opacity: 70%;
+}
+.custom-card-gallery-image:hover{
+    opacity: 60%;
+    cursor: pointer;
+}

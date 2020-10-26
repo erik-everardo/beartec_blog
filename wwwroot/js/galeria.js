@@ -80,15 +80,26 @@ function insertImage(item){
     var imageCard = document.createElement("div");
     imageCard.classList
         .add("card");
+    imageCard.classList
+        .add("custom-card-gallery");
     var imageElement = document.createElement("img");
     imageElement.classList
         .add("card-img-top");
+    imageElement.classList
+        .add("custom-card-gallery-image");
+    var deleteButton = document.createElement("button");
+    deleteButton.onclick = function(){
+        alert("delete");
+    }
     
     item.getDownloadURL().then(function (url){
         console.log(url);
         imageElement.src = url;
         imageCard.appendChild(imageElement);
         cardsContainer.appendChild(imageCard)
+        imageElement.onclick = function(){
+          window.open(url,"_blank");  
+        };
         return item;
     }).then(function(item){
         item.getMetadata().then(function(res){
@@ -107,6 +118,7 @@ function insertImage(item){
             // meto los elementos al card body
             cardBodyElement.appendChild(cardBodyTitleElement);
             cardBodyElement.appendChild(cardBodyParagraphElement);
+            cardBodyElement.appendChild(deleteButton);
 
             // meto el card body a card
             imageCard.appendChild(cardBodyElement);
