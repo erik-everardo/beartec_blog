@@ -1,0 +1,310 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+    height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+#container_login {
+    position: absolute;
+    height: 100%;
+}
+.cuadro_login_signin {
+    background: linear-gradient(rgba(0,0,0,0.1),transparent);
+}
+#barra-navegacion, #barra_index{
+    opacity: 93%;
+}
+#titulo {
+    font-family: Arial, Helvetica, sans-serif
+}
+
+
+
+#titulo_text {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#publicar {
+    position: absolute;
+    display: none;
+    color:white;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#boton_publicar {
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+#content_modal_editar {
+    width: 100%;
+}
+
+#capa_notificaciones {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    visibility: hidden;
+}
+
+#notificacion_articulo_editado {
+    margin: 15px;
+}
+
+.card-articulo {
+    margin: 10px;
+}
+
+#capa_perfil {
+    display: none;
+}
+
+#alerta_contra_incorrecta_perfil_info {
+    display: none;
+    margin-top: 10px;
+}
+
+#capa_editor {
+    display: none;
+}
+
+#capa_mis_articulos {
+    display: none;
+}
+
+#capa_ajustes, #capa-galeria {
+    display: none;
+}
+
+.encabezado-seccion {
+    margin-bottom: 10px;
+}
+
+.resultado-individual-busqueda {
+    margin: 30px;
+}
+
+#boton_modo_oscuro {
+    margin-left: 7px;
+}
+
+#botones_formato_editor {
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+#area-imagen-o-link {
+    display: none;
+}
+
+.menu-grande {
+    width: 300px;
+}
+
+
+#celda_media {
+    margin: auto !important;
+    height: 400px !important;
+}
+
+#vista_previa_tiempo_real {
+    overflow-y: auto;
+}
+
+#aviso-vista-previa {
+    font-size: large;
+    color: grey;
+}
+#layout_boton_flotante{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-right: 1em;
+    padding-bottom: 1em;
+    z-index: 2000;
+    
+}
+#boton_flotante_publicar{
+    background-color: rgba(40, 167, 69,0.5);
+    border-radius: 10px;
+}
+#boton_flotante_publicar:hover{
+    background-color: rgb(40, 167, 69);
+}
+#boton_flotante_publicar:hover::after{
+    content: "Publicar";
+    margin-left: 5px;
+    
+}
+#boton_flotante_vista_previa{
+    background-color: rgba(15, 102, 116,0.5);
+    border-radius: 10px;
+}
+#boton_flotante_vista_previa:hover{
+    background-color: rgb(15, 102, 116);
+}
+#boton_flotante_vista_previa:hover::after{
+    content: "Vista previa";
+    margin-left: 1em;
+}
+.oculto{
+    display:none;
+}
+.desplegable-grande{
+    width:25rem;
+}
+#vista_previa_imagen_carga_externa,#vista_previa_imagen_subir{
+    max-height: 200px;
+    overflow: auto;
+}
+#lista_imagenes{
+    overflow: auto;
+}
+
+@media  (max-width: 767px) {
+    .ocultable-sm{
+        display: none;
+    }
+}
+#cuadro_izq_galeria {
+    overflow-y: overlay;
+}
+
+
+
+.social-media-icon{
+    font-size: 2.5em;
+}
+
+.social-media-link {
+    text-decoration: none;
+    color: white;
+}
+.social-media-link:hover{
+    font-size: 1.1em;
+    text-decoration: none;
+}
+#profile_picture_container {
+    font-size:35px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: #0c5460;
+    height: 80px;
+    width: 80px;
+    color:white;
+}
+#email, #descripcion, #nombre {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin: 0;
+}
+#descripcion {
+    margin-bottom: 20px;
+}
+
+#descripcion::before{
+    content: 'Descripción';
+    font-size: 14pt;
+    display: block;
+    color:#0069d9;
+    margin-top: 0.8em;
+}
+
+/* Categorias */
+#blog_cat_nav{
+    white-space: nowrap;
+    overflow: auto;
+    margin-bottom: 10px;
+    background-color: black;
+    position: sticky;
+    top:0;
+    z-index: 1;
+    font-size: 0px;
+}
+#blog_cat_nav > .blog_cat_element{
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    margin: 0;
+    font-size: 14pt;
+}
+#blog_cat_nav > .blog_cat_element:hover{
+    background-color: #005cbf;
+    text-decoration: none;
+    color: white;
+}
+
+#linux-cat{
+    background-color: orangered;
+}
+#windows-cat{
+    background-color: #005cbf;
+}
+#android-cat{
+    background-color: limegreen;
+}
+#desarrollo-cat{
+    background-color: darkslateblue;
+}
+#gaming-cat{
+    background-color: #a71d2a;
+}
+#hardware-cat{
+    background-color: #686868;
+}
+
+#buscador{
+    font-size: 12pt;
+    display: inline-block;
+    margin-left: 8px;
+}
+#buscador > input{
+    background-color: #212529;
+    color: white;
+    border: none;
+    padding: 8px;
+    
+}
+#buscador > button{
+    color: white;
+    background-color: darkgreen;
+    border: none;
+    margin: 0;
+    padding: 8px;
+}

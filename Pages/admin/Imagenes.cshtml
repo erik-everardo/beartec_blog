@@ -1,0 +1,38 @@
+@page
+@model erik_tech.Pages.admin.Imagen
+@{
+    Layout = null;
+}
+@if (!Model.fuePost)
+{
+    @if (Model.ListaImagenes.Count > 0)
+    {
+        <div class="list-group">
+            @foreach (var imagen in Model.ListaImagenes)
+            {
+                <div class="m-2">
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-light" 
+                       onclick='vistaPreviaImagen("@imagen.url")'>
+                            
+                        <div class="d-flex justify-content-between">
+                            <span class="display-5">@imagen.nombre</span>
+                            @if (imagen.externa)
+                            {
+                                <i class="fas fa-external-link-square-alt" title="Imagen externa"></i>
+                            }
+                            else
+                            {
+                                <i class="fas fa-user" title="Imagen propia"></i>
+                            }
+                        </div>
+                    </a>
+                    <div class="d-flex justify-content-end">
+                        <div class="btn-group btn-group-sm">
+                            <button type="button" class="btn btn-danger" onclick='eliminarImagen(@imagen.Id)'>Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+}

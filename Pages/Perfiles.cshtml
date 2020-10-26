@@ -1,0 +1,85 @@
+@page "{user}"
+@model PerfilModel
+@{
+    ViewData["title"] = @Model.usuario.username;
+}
+@{
+    if (Model.fuePost)
+    {
+        Layout = "";
+        <h2>@Model.usuario.username</h2>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-3 col-lg-2">
+                <div id="profile_picture_container">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 id="nombre">@Model.usuario.username</h2>
+                <p id="email">@Model.usuario.email</p>
+                <p id="descripcion">@Model.usuario.parrafoDescripcion</p>
+            </div>
+            <div class="col-md-9 col-lg-10">
+                <h3>Publicaciones de @Model.usuario.username</h3>
+                @if (Model.articulosUsuario.Count < 1)
+                {
+                    <div class="alert alert-info">
+                        <span>@Model.usuario.username no tiene artículos</span>
+                    </div>
+                }
+                        @foreach (var articulos in Model.articulosUsuario)
+                        {
+                            <div class="card card-articulo">
+                                <div class="card-header">
+                                    @articulos.titulo_publicacion
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        Categorias:
+                
+                                        @if (articulos.Linux)
+                                        {
+                                            <i class="fab fa-linux"></i>
+                                        }
+                                        @if (articulos.Windows)
+                                        {
+                                            <i class="fab fa-windows"></i>
+                                        }
+                                        @if (articulos.Macos)
+                                        {
+                                            <i class="fab fa-apple"></i>
+                                        }
+                                        @if (articulos.Android)
+                                        {
+                                            <i class="fab fa-android"></i>
+                                        }
+                                        @if (articulos.Desarrollo)
+                                        {
+                                            <i class="fas fa-code"></i>
+                                        }
+                                        @if (articulos.Gaming)
+                                        {
+                                            <i class="fas fa-gamepad"></i>
+                                        }
+                                        @if (articulos.Hardware)
+                                        {
+                                            <i class="fas fa-desktop"></i>
+                                        }
+                                        @if (articulos.Otra)
+                                        {
+                                            <i class="fas fa-question"></i>
+                                        }
+                
+                                    </p>
+                                    <a asp-page="/leer" asp-route-id="@articulos.Id">Leer</a>
+                                </div>
+                                <div class="card-footer">@Convert.ToDateTime(articulos.fecha_publicacion).Date.ToString("dd/MM/yyyy")</div>
+                            </div>
+                        }
+            </div>
+        </div>
+        
+        
+    }
+}

@@ -1,0 +1,61 @@
+@page
+@model AdminIndexModel
+@{
+    Layout = "Shared/LayoutRegistro";
+    ViewData["title"] = "Inicia sesión - Editor";
+}
+
+<section class="w-auto p-4 cuadro_login_signin">
+                <div>
+                    <a asp-page="/Index" style="text-decoration: none">
+                        <i class="fas fa-arrow-left"></i> <span style="font-size: 1.5rem">BearTec</span>
+                    </a>
+                    <br/>
+                    <span style="font-size: 2.5rem;color: #164f80">Iniciar sesión</span>
+                </div>
+    <p>Inicia sesión para poder redactar</p>
+            @if (Model.redirigido)
+            {
+                <div class="alert alert-primary" role="alert">
+                    <h4 class="alert-heading">Bienvenido, @Model.textoUsuario</h4><hr/>
+                    <p>Tu cuenta ha sido creada exitosamente, ingresa tu contraseña para continuar.</p>
+                </div>
+            }
+            <form id="login" class="text-center" asp-antiforgery="true" action="/admin/home" method="post">
+                <div class="form-group">
+                    @{
+                        if (Model.contraIncorrecta)
+                        {
+                            <input name="username" id="usuario" type="text" class="form-control entradas_login" value="@Model.textoUsuario" placeholder="Nombre de usuario">
+                        }
+                        if (Model.usuarioNoExiste)
+                        {
+                            <input name="username" id="usuario" type="text" class="form-control entradas_login is-invalid" placeholder="Nombre de usuario">
+                            <div class="invalid-feedback">El usuario no existe</div>
+                        }
+                        else if (!Model.usuarioNoExiste && !Model.contraIncorrecta)
+                        {
+                            <input name="username" id="usuario" type="text" class="form-control entradas_login" value="@Model.textoUsuario" placeholder="Nombre de usuario">
+                        }
+                    }
+                </div>
+                <div class="form-group">
+                    @{
+                        if (Model.contraIncorrecta)
+                        {
+                            <input name="password" type="password" class="form-control entradas_login is-invalid" placeholder="Contraseña">
+                            <div class="invalid-feedback">Contraseña incorrecta</div>
+                        }
+                        else
+                        {
+                            <input name="password" type="password" class="form-control entradas_login" placeholder="Contraseña">
+                        }
+                    }
+                </div>
+                <div class="form-group d-flex justify-content-end">
+                    <input type="submit" class="form-control btn btn-primary w-auto" value="Iniciar sesión">
+                </div>
+                
+            </form>
+            <p>Si aun no tienes una cuenta, <a asp-page="/registro">crea una ahora</a></p>
+</section>

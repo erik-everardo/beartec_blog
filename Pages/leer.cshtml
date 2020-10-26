@@ -1,0 +1,55 @@
+@page
+@model LeerModel
+
+@if (Model.error)
+{
+    <h1>La URL que intentas acceder no existe</h1>
+}
+else
+{
+    ViewData["title"] = @Model.articulo.titulo_publicacion;
+    ViewData["descripcion"] = @Model.articulo.titulo_publicacion;
+    <article class="container">
+        <section>
+            <h2>@Model.articulo.encabezado</h2><a asp-page="/DescargarArticulo" asp-route-id="@Model.articulo.Id" download="@(Model.articulo.titulo_publicacion + ".html")"><i class="fas fa-download"></i>Descargar</a>
+        </section>
+        <p>Publicado el: @Convert.ToDateTime(Model.articulo.fecha_publicacion).Date.ToString("dd/MM/yyyy") por <a asp-page="/Perfiles" asp-route-user="@Model.BuscarNombreAutorPorIdArticulo(@Model.articulo.autor_id)">@Model.BuscarNombreAutorPorIdArticulo(@Model.articulo.autor_id)</a></p>
+        <p>
+            Categorias:
+            @if (Model.articulo.Linux)
+            {
+                <i class="fab fa-linux"></i>
+            }
+            @if (Model.articulo.Windows)
+            {
+                <i class="fab fa-windows"></i>
+            }
+            @if (Model.articulo.Macos)
+            {
+                <i class="fab fa-apple"></i>
+            }
+            @if (Model.articulo.Android)
+            {
+                <i class="fab fa-android"></i>
+            }
+            @if (Model.articulo.Desarrollo)
+            {
+                <i class="fas fa-code"></i>
+            }
+            @if (Model.articulo.Gaming)
+            {
+                <i class="fas fa-gamepad"></i>
+            }
+            @if (Model.articulo.Hardware)
+            {
+                <i class="fas fa-desktop"></i>
+            }
+        </p>
+        <hr>
+        <div>@Html.Raw(Model.articulo.cuerpo)</div>
+        @{
+            var url = "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbeartec.azurewebsites.net%2Fleer%3Fid%3D" + Model.articulo.Id + "&src=sdkpreparse";
+        }
+        <div class="fb-share-button" data-href="https://beartec.azurewebsites.net/leer?id=@Model.articulo.Id" data-layout="button_count" data-size="small"><a target="_blank" href="@url" class="fb-xfbml-parse-ignore">Compartir</a></div>
+    </article>
+}

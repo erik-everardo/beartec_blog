@@ -1,0 +1,395 @@
+@page
+@model homeModel
+@{
+    ViewData["title"] = "Home";
+    Layout = "LayoutDashboard";
+}
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+
+@functions{
+
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(HttpContext).RequestToken;
+    }
+
+}
+<environment include="Development">
+    <script>
+      //variables de DataView[]
+      var tokenDeVerificacion = "@GetAntiXsrfRequestToken()";
+      var passwordActual = "@ViewData["password_usuario"]";
+      var nombreDeUsuarioActual = "@ViewData["nombre_de_usuario"]";
+      var correoActual = "@ViewData["correo"]";
+      var descripcion = "@ViewData["descripcion"]";
+      var idUsuario = "@ViewData["id_usuario"]";
+      var modoOscuro = @ViewData["modoOscuro"];
+    </script>
+</environment>
+<environment exclude="Development">
+    <script>
+      //variables de DataView[]
+      var tokenDeVerificacion = "@GetAntiXsrfRequestToken()";
+      var passwordActual = "@ViewData["password_usuario"]";
+      var nombreDeUsuarioActual = "@ViewData["nombre_de_usuario"]";
+      var correoActual = "@ViewData["correo"]";
+      var descripcion = "@ViewData["descripcion"]";
+      var idUsuario = "@ViewData["id_usuario"]";
+      var modoOscuro = @ViewData["modoOscuro"];
+    </script>
+</environment>
+
+
+<div class="row">
+<div class="col-12">
+<div id="capa_editor">
+
+    <div id="redactar">
+        <div class="form-group" id="grupo">
+            <input type="text" class="@ViewData["string_clase_body"] form-control" id="titulo_text" placeholder="Escribir titulo aquí">
+            <div class="btn-toolbar" id="botones_formato_editor">
+                <div class="btn-group mr-2 oculto" id="botones_articulo_modificar">
+                    <button id="boton_save" class="btn btn-success" title="Guardar cambios">
+                        <i class="fas fa-save"></i>
+                    </button>
+                    <button id="boton_quit" class="btn btn-danger" title="Descartar">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                    <button id="boton_editar_informacion" class="btn btn-primary" title="Modificar información de artículo" onclick="aparecerPantallaPublicar()">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+
+
+                <div class="btn-group mr-2 btn-group-sm">
+                    <button id="boton_p" class="btn btn-primary" title="Párrafo">
+                        <i class="fas fa-paragraph"></i>
+                    </button>
+                    <button id="boton_em" class="btn btn-primary" title="Itálicas">
+                        <em>I</em>
+                    </button>
+                    <button id="boton_strong" class="btn btn-primary" title="Negritas">
+                        <strong>N</strong>
+                    </button>
+                    <button id="boton_u" class="btn btn-primary" title="Subrayado">
+                        <u>S</u>
+                    </button>
+                </div>
+                <div class="btn-group mr-2 btn-group-sm">
+                    <div class="btn-group">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="boton_a" data-toggle="dropdown" title="Insertar hipervínculo">
+                            <i class="fas fa-link"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <!--Colocar formulario-->
+                            <div class="form-group p-1 menu-grande">
+                                <label for="link_url">URL</label>
+                                <input type="url" id="link_url" class="form-control" placeholder="ej. https://uanl.mx/"/>
+                                <label for="link_texto">Texto</label>
+                                <input type="text" id="link_texto" class="form-control" placeholder="ej. mi universidad"/>
+                                <div class="d-flex w-100 justify-content-end mt-2">
+                                    <button class="btn btn-primary" onclick="insertarVinculo()">Insertar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="boton_img" data-toggle="dropdown" title="Insertar imagen">
+                            <i class="far fa-image"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <!--Colocar formulario-->
+                        </div>
+                    </div>
+                </div>
+                <div class="oculto" id="mensajeDeGuardado"></div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <textarea type="text" class="form-control @ViewData["string_clase_body"]" id="cuerpo_articulo" placeholder="Zona de redactar. Formatee con html" rows="1"></textarea>
+                </div>
+                <div class="col-6" id="vista_previa_tiempo_real">
+                    <div id="aviso-vista-previa">
+                        <h3>Vista previa</h3>
+                        Comienza a escribir a la izquierda. <a href="#">Más información</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="layout_boton_flotante">
+            <button class="btn btn-lg " id="boton_flotante_vista_previa" onclick="solicitarVistaPrevia()">
+                <i class="fas fa-eye"></i>
+            </button>
+            <button class="btn btn-lg " id="boton_flotante_publicar" onclick="aparecerPantallaPublicar()">
+                <i class="fas fa-upload"></i>
+            </button>
+        </div>
+    </div>
+    <form target="_blank" action="/admin/VistaPrevia" asp-antiforgery="true" method="post" id="formularioVistaPrevia">
+        <input type="hidden" name="idUsuario" id="idUsuarioFormVP"/>
+        <input type="hidden" name="nombrePublicacion" id="tituloFormVP"/>
+        <input type="hidden" name="encabezadoPublicacion" id="encabezadoFormVP"/>
+        <input type="hidden" name="cuerpo" id="cuerpoFormVP"/>
+    </form>
+
+</div>
+<div id="capa_mis_articulos">
+    <h3>Mis artículos</h3>
+    <div id="mis_articulos"></div>
+</div>
+<div id="capa_perfil">
+    <h3>Mi perfil</h3>
+    <hr/>
+    <!--imagen prototipo-->
+    <img src="images/img-usuario-proto.jpg" height="60px"/><h4>@ViewData["nombre_de_usuario"]</h4>
+    <hr/>
+    <div class="encabezado-seccion">
+        <h5>Información de cuenta</h5>
+        <button class="btn btn-primary btn-sm" id="boton_editar_info_perfil">Editar</button>
+        <button class="btn btn-success btn-sm" id="boton_perfil_info_guardar_cambios" data-target="#confirmarContra_perfil" data-toggle="modal" disabled>Guardar</button>
+    </div>
+    <form id="perfil_info_modificar" asp-antiforgery="true">
+        <div class="form-group">
+            <label for="perfil_nombre">Nombre de usuario</label>
+            <input class="form-control" value="@ViewData["nombre_de_usuario"]" id="perfil_nombre" disabled name="nuevoNombre"/>
+        </div>
+        <div class="form-group">
+            <label for="perfil_correo">E-mail</label>
+            <input class="form-control" value="@ViewData["correo"]" id="perfil_correo" disabled name="nuevoCorreo"/>
+        </div>
+        <div class="form-group">
+            <label for="parrafo-descripcion">Descripción</label>
+            <textarea class="form-control" placeholder="Descripción tuya" id="parrafo-descripcion" disabled name="descripcion">@ViewData["descripcion"]</textarea>
+        </div>
+        <input type="hidden" value="@ViewData["id_usuario"]" name="id"/>
+    </form>
+    <hr/>
+    <h5>Cambiar contraseña</h5>
+    <form id="formulario-cambio-password" asp-antiforgery="true">
+        <div class="form-group">
+            <label for="password-actual">Contraseña actual</label>
+            <input type="password" id="password-actual" class="form-control" name="passwordActual"/>
+        </div>
+        <div class="form-group">
+            <input type="hidden" value="@ViewData["id_usuario"]" name="idUsuario"/>
+            <label for="nuevaPassword">Nueva contraseña</label>
+            <input type="password" id="nuevaPassword" class="form-control" name="nuevaPassword"/>
+            <label for="confirmacionPassword">Confirme contraseña nueva</label>
+            <input type="password" id="confirmacionPassword" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Cambiar contraseña"/>
+        </div>
+    </form>
+</div>
+
+<div id="capa_ajustes">
+    <h3>Ajustes</h3>
+    <hr/>
+    <form asp-antiforgery="true">
+        <div class="form-group">
+            <h4>Modo oscuro</h4>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="modo_oscuro" name="oscuro">
+                <label class="custom-control-label" for="modo_oscuro">Modo oscuro</label>
+            </div>
+        </div>
+        <hr/>
+        <div class="form-group">
+            <h4>Temas de color</h4>
+            <div class="btn-group-vertical">
+                <a href="#" class="btn btn-light">Predeterminado</a>
+                <a href="#" class="btn btn-primary">Azul</a>
+                <a href="#" class="btn btn-dark">Oscuro</a>
+                <a href="#" class="btn btn-success">Verde</a>
+                <a href="#" class="btn btn-info">Aqua</a>
+                <a href="#" class="btn btn-danger">Rojo</a>
+                <a href="#" class="btn btn-warning">Amarillo</a>
+            </div>
+        </div>
+        <hr/>
+    </form>
+</div>
+<div id="capa-galeria">
+    <h3 id="header_galeria_imagenes">Galería de imágenes</h3>
+    <div class="row">
+        <div class="col-md-4 col-lg-3" id="cuadro_izq_galeria">
+            <div class="d-flex flex-wrap">
+                <div class="card w-100 my-2 mx-sm-2">
+                    <div class="card-header">
+                        
+                        <i class="fas fa-images"></i>
+                        Agrega imagen a tu galería
+                    </div>
+                    <div class="card-body">
+                        <div id="botones_de_desplegables_agregar_imagen_galeria" class="m-2 d-flex justify-content-center">
+                            <button class="w-auto mx-2 btn btn-primary" title="Agrega imagen externa" data-toggle="collapse" data-target="#collapse_imagen_externa">
+                                <i class="fas fa-plus-square"></i>
+                            </button>
+                            <button class="w-auto mx-2 btn btn-primary" title="Sube una imagen propia" data-toggle="collapse" data-target="#collapse_imagen_propia">
+                                <i class="fas fa-upload"></i>
+                            </button>
+                        </div>
+                        <div id="desplegables_agregar_imagen_galeria">
+                            <div class="collapse" id="collapse_imagen_externa" data-parent="#desplegables_agregar_imagen_galeria">
+                                <h5 class="m-2">Agrega URL de imagen externa</h5>
+                                <div class="form-group m-2">
+                                    <input type="url" class="form-control" id="url_imagen_externa" placeholder="Ej. https://upload.wikimedia.org/wikipedia/commons/c/c7/Roadrunner_supercomputer_HiRes.jpg"/>
+                                    <div id="vista_previa_imagen_carga_externa" class="my-2"></div>
+                                </div>
+                                <div class="form-group m-2">
+                                    <label for="nombre_imagen_externa">Nombre</label>
+                                    <input type="text" id="nombre_imagen_externa" class="form-control" placeholder="Ej. Roadrunner"/>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn-primary m-2" id="btn_agregar_imagen_externa">Agregar</button>
+                                </div>
+                            </div>
+                            <div class="collapse" id="collapse_imagen_propia" data-parent="#desplegables_agregar_imagen_galeria">
+                                <h5 class="m-2">Sube imagen</h5>
+                                <div class="form-group m-2">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="archivo_imagen_propia" accept="image/*">
+                                        <label class="custom-file-label" for="archivo_imagen_propia" data-browse="Cargar">Imagen</label>
+                                    </div>
+                                    <div id="vista_previa_imagen_subir" class="my-2"></div>
+                                </div>
+                                <div class="form-group m-2">
+                                    <label for="nombre_imagen_propia">Nombre</label>
+                                    <input type="text" id="nombre_imagen_propia" class="form-control"/>
+                                </div>
+                                <div class="d-flex justify-content-end m-2">
+                                    <button type="button" class="btn btn-primary my-2" id="btn_subir_imagen_propia">
+                                        Subir
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="card w-100 my-2 mx-sm-2 ocultable-sm">
+                    <div class="card-header"><i class="far fa-eye"></i> Vista previa</div>
+                    <div class="card-body d-flex flex-wrap" id="vista_previa_imagen_galeria">
+                        <p class="card-text">
+                            Haz clic en un elemento de la derecha
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="lista_imagenes" class="col-lg-9 col-md-8"></div>
+    </div>
+
+
+</div>
+</div>
+</div>
+
+<!--Modales-->
+<div class="modal" tabindex="-1" role="dialog" id="no_texto_modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content @ViewData["string_clase_body"]">
+            <div class="modal-header">
+                <h5 class="modal-title">Falta contenido a su artículo</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>No ha escrito texto en ambos campos. Debe empezar a editar para poder subirlo. Puede salir ahora, pero no podrá subir un artículo vacío o sin alguno de los dos campos.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="mandarAEditar()">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="publicar" class="p-md-5 p-3" role="tabpanel">
+    <button type="button" class="close" onclick="desaparecerPantallaPublicar()">
+        <span aria-hidden="true" style="color: red">&times;</span>
+    </button>
+    <!--Este formulario se envia al servidor-->
+    <form id="form_publicacion" asp-antiforgery="true">
+        <h3>Nombre de la publicación</h3>
+        <p>Este nombre es el nombre de tu publicación. De manera predeterminada será el mismo que se introdujo en el campo de título al editar. Puedes cambiarlo. Será el nombre que identificará tu artículo.
+        <div class="form-group">
+            <input class="form-control" type="text" id="encabezado" name="titulo_publicacion">
+        </div>
+        <!--seleccionar la categoria(s) del articulo-->
+        <h3>Selecciona la(s) categoria(s) de tu artículo.</h3>
+        <div class="form-group">
+            <div class="form-check form-check-inline">
+                <input class="categoria form-check-input" type="checkbox" value="1" name="linux" id="linux_check">
+                <label class="form-check-label" for="inlineCheckbox1">Linux</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="categoria form-check-input" type="checkbox" value="1" name="windows" id="windows_check">
+                <label class="form-check-label" for="inlineCheckbox1">Windows</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="categoria form-check-input" type="checkbox" value="1" name="macos" id="macos_check">
+                <label class="form-check-label" for="inlineCheckbox1">macOS</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="categoria form-check-input" type="checkbox" value="1" name="android" id="android_check">
+                <label class="form-check-label" for="inlineCheckbox1">Android</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="categoria form-check-input" type="checkbox" value="1" name="desarrollo" id="desarrollo_check">
+                <label class="form-check-label" for="inlineCheckbox1">Desarrollo</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="categoria form-check-input" type="checkbox" value="1" name="gaming" id="gaming_check">
+                <label class="form-check-label" for="inlineCheckbox1">Gaming</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="categoria form-check-input" type="checkbox" value="1" name="hardware" id="hardware_check">
+                <label class="form-check-label" for="inlineCheckbox1">Hardware</label>
+            </div>
+        </div>
+        <h3>Palabras clave</h3>
+        <p>Introduce palabras clave que ayuden a la busqueda. Separalas con un espacio. Evite escribir frases. No hay diferencia entre mayúsculas y minúsculas.
+        <div class="form-group">
+            <textarea class="form-control" name="palabras_clave" placeholder="Por ejemplo: JAVA Linux Unity"></textarea>
+        </div>
+        <!--campos ocultos (cuerpo, encabezado y autor-->
+        <input type="hidden" name="autor" value="@ViewData["nombre_de_usuario"]">
+        <input type="hidden" name="cuerpo" id="campo_oculto_cuerpo">
+        <input type="hidden" name="encabezado" id="campo_oculto_encabezado">
+        <div class="d-flex justify-content-end align-content-end">
+            <input type="submit" id="boton_publicar" value="Publicar" class="form-control btn-primary btn w-auto">
+
+        </div>
+
+    </form>
+</div>
+
+<!--Modal perfil, de confirmacion de contraseña, modificacion de nombre de usuario y contraseña-->
+<div class="modal fade" id="confirmarContra_perfil" tabindex="-1" role="dialog" aria-labelledby="Cornfirmacion de contraseña">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content @ViewData["string_clase_body"]">
+            <div class="modal-header">
+                <h5 class="modal-title">Ingresa tu contraseña</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input class="form-control" type="password" id="pass_confirmacion_perfil_info" form="perfil_info_modificar" name="pass"/>
+                </form>
+                <div id="alerta_contra_incorrecta_perfil_info" class="alert alert-danger" role="alert">
+                    Contraseña incorrecta
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="boton_continuar_confirmacion">Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="icon" href="~/images/favicon.ico" type="image/x-icon">
+    <title>@ViewData["Title"] - erik.tech</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"/>
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+    </environment>
+    <link rel="stylesheet" href="~/css/site.css"/>
+    <link rel="stylesheet" href="~/lib/fontaw/css/all.css"/>
+
+</head>
+<body onload="ajustarDimensionesCuerpoEditor();" class="@ViewData["string_clase_body"]">
+<partial name="_CookieConsentPartial"/>
+<div id="barra-navegacion" class="fluid-container sticky-top @ViewData["string_clase_barra_navegacion"]">
+    <nav  class="navbar navbar-expand container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#barra">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse mr-auto" id="barra">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" id="link-abrir-articulos" href="#articulos"><i class="fas fa-book"></i> <span class="ocultable-sm">Mis artículos</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="link-abrir-editor" href="#editor"><i class="fas fa-feather"></i> <span class="ocultable-sm">Redactar</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="link-abrir-galeria" href="#galeria"><i class="fas fa-images"></i> <span class="ocultable-sm">Galería de imágenes</span></a>
+                </li>
+                <li class="nav-item">
+                    <a href="#ayuda" class="nav-link" id="link-abrir-ayuda"><i class="fas fa-question"></i> <span class="ocultable-sm">Ayuda</span></a>
+                </li>
+            </ul>
+            <div class="dropdown navbar_brand">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="boton_perfil" data-toggle="dropdown">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" style="z-index: 2000!important;">
+                    <h6 class="dropdown-header">@ViewData["nombre_de_usuario"]</h6>
+                    <div class="dropdown-divider"></div>
+                    <a href="#perfil" class="dropdown-item" id="btn_ver_perfil">Perfil</a>
+                    <a class="dropdown-item" href="#ajustes" id="boton_ajustes">Ajustes</a>
+                    <a class="dropdown-item" asp-page="/Index" tabindex="-1" aria-disabled="true">Salir</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container">
+    @RenderBody()
+</div>
+<environment include="Development">
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/lib/google-sdk/firebase-app.js"></script>
+    <script src="~/lib/google-sdk/firebase-storage.js"></script>
+</environment>
+<environment exclude="Development">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery"
+            crossorigin="anonymous"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+            crossorigin="anonymous"
+            integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+        </script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-storage.js"></script>
+</environment>
+
+
+<script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
+
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyC8daaMSVXTqJ6o-5xGQBrZpfLqUyK7RHs",
+    authDomain: "beartec-18286.firebaseapp.com",
+    databaseURL: "https://beartec-18286.firebaseio.com",
+    projectId: "beartec-18286",
+    storageBucket: "beartec-18286.appspot.com",
+    messagingSenderId: "404464010504",
+    appId: "1:404464010504:web:db175955d4d538558118bd"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  // reference to public storage
+  var storage = firebase.storage();
+  
+  function subirImagen(nombre){
+      
+      if(inputFile.files.length > 0){
+          // Create a root reference
+          var storageRef = storage.ref();
+  
+          // Create a reference to image
+          storageRef.child(`${nombre}-${uuidv4()}`);
+
+          var ref = storageRef.child(`images/${idUsuario}/${nombre}-${uuidv4()}`);
+          
+          
+          var imageFile = inputFile.files[0];
+          ref.put(imageFile).then(function(snapshot) {
+            alert("Imagen cargada correctamente");
+            setUpImagesSpace();
+            listImages();
+          });
+
+      }else{
+          alert("Selecciona un archivo para cargar");
+      }
+  }
+  function listImages(){
+      var storageRef = storage.ref();
+      var userImagesRef = storageRef.child('images/' + idUsuario);
+      var urls = Array();
+      userImagesRef.listAll().then(function (result){
+          result.items.forEach(function (item){
+              insertImage(item)
+              
+          });
+          
+      });
+      
+  }
+</script>
+
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/js/editor.js" asp-append-version="true"></script>
+<script src="~/js/modoOscuro.js" asp-append-version="true"></script>
+<script src="~/js/galeria.js" asp-append-version="true"></script>
+<script>
+    //hashes based location implementation
+    switch (window.location.hash) {
+              case "#articulos":abrir_mis_articulos();break;
+              case "#editor":abrir_editor();break;
+              case "#galeria":abrirGaleria();break;
+              case "#ayuda":break;
+              case "#perfil":break;
+              case "#ajustes":break;
+          }
+    window.onhashchange = function(){
+      switch (window.location.hash) {
+          case "#articulos":abrir_mis_articulos();break;
+          case "#editor":abrir_editor();break;
+          case "#galeria":abrirGaleria();break;
+          case "#ayuda":break;
+          case "#perfil":abrir_perfil();break;
+          case "#ajustes":abrir_ajustes();break;
+      }
+    };
+</script>
+@RenderSection("Scripts", required: false)
+</body>
+</html>

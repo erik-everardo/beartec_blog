@@ -1,0 +1,23 @@
+@page
+@model DescargarArticulo
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>@Model.nombre</title>
+    <style type="text/css">
+        #contenedor-cuerpo{margin-left:10%;margin-right: 10%;}
+        h4,h5,h6{font-size:16pt;margin:0}
+        p{font-family: Arial, Helvetica, sans-serif;text-align: justify}
+    </style>
+</head>
+<body>
+<div id="contenedor-cuerpo">
+    <h1>@Model.encabezado</h1>
+    <div>@Html.Raw(Model.cuerpo)</div>
+</div>
+</body>
+</html>

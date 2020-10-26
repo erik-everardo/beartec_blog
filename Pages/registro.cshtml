@@ -1,0 +1,42 @@
+@page
+@model RegistroModel
+
+@{
+    ViewData["title"] = "Haz una cuenta de editor";
+    Layout = "LayoutRegistro";
+}
+
+
+<section class="w-auto p-4 cuadro_login_signin">
+    <div>
+        <a asp-page="/Index" style="text-decoration: none">
+            <i class="fas fa-arrow-left"></i> <span style="font-size: 1.5rem">BearTec</span>
+        </a>
+        <br/>
+        <span style="font-size: 2.5rem;color: #164f80">Registrarse</span>
+    </div>
+    
+    
+    <form id="login" method="post">
+        <div class="form-group">
+            <input name="username" id="usuario" type="text" class="form-control entradas_login @Model.validacion" required placeholder="Nombre de usuario">
+            <div class="invalid-feedback">El nombre ya está en uso, escoje otro por favor.</div>
+        </div>
+
+
+
+        <div class="form-group">
+            <input name="password" type="password" class="form-control entradas_login @Model.validacionPassword" required placeholder="Contraseña">
+            <div class="invalid-feedback">La contraseña es obligatoria. No puede ser un espacio en blanco.</div>
+        </div>
+
+        <div class="form-group">
+            <input name="email" type="email" class="form-control entradas_login" required placeholder="Correo electrónico">
+        </div>
+
+        <div class="form-group d-flex justify-content-end">
+            <input type="submit" class="form-control btn btn-primary w-auto" value="Registrar">
+        </div>
+    </form>
+    <p>Si ya estás registrado <a asp-page="/admin/Index">inicia sesión</a></p>
+</section>

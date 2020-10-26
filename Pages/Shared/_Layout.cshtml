@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="icon" href="~/images/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta property="og:title" content="@ViewData["title"]"/>
+    <meta property="og:type" content="article"/>
+    <link rel="stylesheet" type="text/css" href="https://beartec.site/stylesheets/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="https://beartec.site/stylesheets/main.css"/>
+    <title>@ViewData["Title"] - BearTec</title>
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"/>
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+    </environment>
+    <link rel="stylesheet" href="~/css/site.css"/>
+    <link rel="stylesheet" href="~/lib/fontaw/css/all.css"/>
+</head>
+<body style="background-color: #1d2124">
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v8.0&appId=587471388586752&autoLogAppEvents=1" nonce="51wzo7lr"></script>
+<div id="header">
+    <div class="custom_navbar">
+        <a id="brand" asp-page="Index" asp-route-categoria="">
+            <img src="~/images/logo.png" height="30px" class="d-inline-block align-top">
+            BearTec
+        </a>
+        <ul id="main_menu">
+            <li class="first_list">
+                <a href="https://beartec.site/" class="main_menu_first">home</a>
+            </li>
+            
+            <li class="first_list">
+                <a href="https://beartec.azurewebsites.net/" class="main_menu_first main_current">blog</a>
+            </li>
+        </ul>
+    </div> 
+</div> 
+<div class="container">
+    <div id="main_content" style="background-color: rgb(225, 225, 219); padding-bottom: 20px">
+        <partial name="_CookieConsentPartial"/>
+        <nav id="blog_cat_nav">
+            <a class="blog_cat_element" id="linux-cat" asp-page="/Index" asp-route-categoria="Linux"><i class="fab fa-linux"></i> Linux</a>
+            <a class="blog_cat_element" id="windows-cat" asp-page="/Index" asp-route-categoria="Windows"><i class="fab fa-windows"></i> Windows</a>
+            <a class="blog_cat_element" id="macos-cat" asp-page="/Index" asp-route-categoria="macOS"><i class="fab fa-apple"></i> macOS</a>
+            <a class="blog_cat_element" id="android-cat" asp-page="/Index" asp-route-categoria="Android"><i class="fab fa-android"></i> Android</a>
+            <a class="blog_cat_element" id="desarrollo-cat" asp-page="/Index" asp-route-categoria="Desarrollo"><i class="fas fa-code"></i> Desarrollo</a>
+            <a class="blog_cat_element" id="gaming-cat" asp-page="/Index" asp-route-categoria="Gaming"><i class="fas fa-gamepad"></i> Gaming</a>
+            <a class="blog_cat_element" id="hardware-cat" asp-page="/Index" asp-route-categoria="Hardware"><i class="fas fa-desktop"></i> Hardware</a>
+            <form method="get" asp-page="buscar" id="buscador">
+                    <input type="text" name="q" placeholder="Buscar"/>
+                    <button type="submit" ><i class="fas fa-search"></i></button>
+                    
+                
+            </form>
+        </nav>
+        <div>
+            @RenderBody()
+        </div>
+        
+    </div>
+</div>
+
+<div id="footer">
+    <div class="footer_info">
+        <h4>about us</h4>
+        <p>Grupo de estudiantes de ingenieria apasionados por la tecnologia y el desarrollo de la misma. </p>
+    </div> <!-- END #footer_about -->
+    <div class="footer_info">
+        <h4>explore</h4>
+        <ul>
+            <li>
+                <a href="https://beartec.site/">home</a>
+            </li>
+            <li>
+                <a href="https://beartec.azurewebsites.net/">blog</a>
+            </li>
+        </ul>
+    </div> <!-- END #footer_about -->
+    <div class="footer_info">
+        <h4>connect with us</h4>
+        <ul>
+            <li>
+                <a href="https://www.facebook.com/BearTec-109737720692447" id="facebook" title="Facebook">Facebook</a>
+            </li>
+        </ul>
+    </div>
+</div> <!-- END #footer -->
+<script src="https://beartec.site/javascript/styling.js" crossorigin="anonymous"></script>
+
+
+<environment include="Development">
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+</environment>
+<environment exclude="Development">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery"
+            crossorigin="anonymous"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+            crossorigin="anonymous"
+            integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+        </script>
+</environment>
+
+<script>
+    //si jamas habia sido guardada la variable de modo oscuro, la crea
+    if(!window.localStorage.getItem("oscuro")){
+        window.localStorage.setItem("oscuro","off");
+    }
+    
+    //envia un request al servidor de archivos para "despertarlo"
+    var fecha = new Date();
+    $.get("https://files-erik-tech.azurewebsites.net/despertar.php",{entrada:fecha.getTime()})
+</script>
+
+@RenderSection("Scripts", required: false)
+</body>
+</html>

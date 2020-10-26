@@ -1,0 +1,62 @@
+@page
+@model SolicitarArticuloModel
+@{
+    Layout = "";
+}
+@if (Model.articulos.Count == 0)
+{
+    <div class="alert alert-info" role="alert">
+        No haz escrito ningún artículo. <a href="#editor" class="alert-link">Comienza uno</a>.
+    </div>
+}
+@foreach (var articulo in Model.articulos)
+{
+    <div class="card @ViewData["string_clase_oscuro"]" style="margin-bottom:10px">
+        <div class="card-header">
+            @articulo.titulo_publicacion
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                Categorias:
+                @if (articulo.Linux)
+                {
+                    <i class="fab fa-linux"></i>
+                }
+                @if (articulo.Windows)
+                {
+                    <i class="fab fa-windows"></i>
+                }
+                @if (articulo.Macos)
+                {
+                    <i class="fab fa-apple"></i>
+                }
+                @if (articulo.Android)
+                {
+                    <i class="fab fa-android"></i>
+                }
+                @if (articulo.Desarrollo)
+                {
+                    <i class="fas fa-code"></i>
+                }
+                @if (articulo.Gaming)
+                {
+                    <i class="fas fa-gamepad"></i>
+                }
+                @if (articulo.Hardware)
+                {
+                    <i class="fas fa-desktop"></i>
+                }
+            </p>
+            <a href="/leer?id=@articulo.Id" target="_blank" class="btn btn-primary"><i class="fas fa-external-link-alt"></i> Ver</a>
+            <button type="button" class="btn btn-primary" onclick="editar(@articulo.Id)">
+
+                <i class="fas fa-pencil-alt"></i> Editar
+            </button>
+            <a class="btn btn-primary" asp-page="/DescargarArticulo" asp-route-id="@articulo.Id" download="@(articulo.titulo_publicacion + ".html")">
+                <i class="fas fa-download"></i>
+            </a>
+            <a href="#" onclick="EliminarArticulo(@articulo.Id)" class="btn btn-danger"><i class="fas fa-trash"></i> Eliminar</a>
+        </div>
+        <div class="card-footer text-muted">@Convert.ToDateTime(articulo.fecha_publicacion).Date.ToString("dd/MM/yyyy")</div>
+    </div>
+}

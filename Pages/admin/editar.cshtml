@@ -1,0 +1,15 @@
+@page
+@model EditarModel
+@{
+    Layout = "";
+}
+@{
+    if (Model.error)
+    {
+        @Html.Raw("error");
+    }
+    else
+    {
+        @Html.Raw("correcto");
+    }
+}
