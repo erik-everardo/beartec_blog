@@ -140,6 +140,19 @@
       });
       
   }
+  function deleteImage(fullPath){
+      var storageRef = storage.ref();
+      var imageRef = storageRef.child(fullPath);
+      
+      // Delete the file
+      imageRef.delete().then(function() {
+        setUpImagesSpace();
+        listImages();
+      }).catch(function(error) {
+        console.error("Could not delete image: " + error);
+      });
+
+  }
 </script>
 
 

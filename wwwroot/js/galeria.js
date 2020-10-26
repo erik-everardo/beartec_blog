@@ -88,9 +88,11 @@ function insertImage(item){
     imageElement.classList
         .add("custom-card-gallery-image");
     var deleteButton = document.createElement("button");
-    deleteButton.onclick = function(){
-        alert("delete");
-    }
+    deleteButton.classList
+        .add("btn");
+    deleteButton.classList
+        .add("btn-danger");
+    deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
     
     item.getDownloadURL().then(function (url){
         console.log(url);
@@ -122,27 +124,18 @@ function insertImage(item){
 
             // meto el card body a card
             imageCard.appendChild(cardBodyElement);
-        })
-    })
-    
-}
-
-
-
-
-function eliminarImagen(idImagen){
-    if (confirm("¿Seguro que quieres eliminar la imagen?")) {
-        $.post("/admin/Imagenes",{
-            accion:"borrar",
-            idImagen:idImagen,
-            idUsuario:idUsuario,
-            password:passwordActual,
-            __RequestVerificationToken: tokenDeVerificacion
-        },function(){
-            solicitarImagenesGaleria();
-            resetearVistaPreviaGaleria();
+            
+            deleteButton.onclick = function () {
+                // function defined at LayoutDashboard.cshtml
+                
+                if(confirm("¿Quieres eliminar " + res.name + "?")){
+                    deleteImage(res.fullPath);
+                }
+            }
         });
-    }
+        
+    });
+    
 }
 function resetearVistaPreviaGaleria(){
     document.getElementById("vista_previa_imagen_galeria").innerHTML =
