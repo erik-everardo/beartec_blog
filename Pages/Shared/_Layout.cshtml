@@ -43,27 +43,32 @@
     </div> 
 </div> 
 <div class="container">
-    <div id="main_content" style="background-color: rgb(225, 225, 219); padding-bottom: 20px">
-        <partial name="_CookieConsentPartial"/>
-        <nav id="blog_cat_nav">
-            <a class="blog_cat_element" id="linux-cat" asp-page="/Index" asp-route-categoria="Linux"><i class="fab fa-linux"></i> Linux</a>
-            <a class="blog_cat_element" id="windows-cat" asp-page="/Index" asp-route-categoria="Windows"><i class="fab fa-windows"></i> Windows</a>
-            <a class="blog_cat_element" id="macos-cat" asp-page="/Index" asp-route-categoria="macOS"><i class="fab fa-apple"></i> macOS</a>
-            <a class="blog_cat_element" id="android-cat" asp-page="/Index" asp-route-categoria="Android"><i class="fab fa-android"></i> Android</a>
-            <a class="blog_cat_element" id="desarrollo-cat" asp-page="/Index" asp-route-categoria="Desarrollo"><i class="fas fa-code"></i> Desarrollo</a>
-            <a class="blog_cat_element" id="gaming-cat" asp-page="/Index" asp-route-categoria="Gaming"><i class="fas fa-gamepad"></i> Gaming</a>
-            <a class="blog_cat_element" id="hardware-cat" asp-page="/Index" asp-route-categoria="Hardware"><i class="fas fa-desktop"></i> Hardware</a>
-            <form method="get" asp-page="buscar" id="buscador">
-                    <input type="text" name="q" placeholder="Buscar"/>
-                    <button type="submit" ><i class="fas fa-search"></i></button>
+    <nav id="blog_cat_nav" class="d-flex align-content-center">
+                
+        <a class="blog_cat_element" href="/"><i class="fas fa-home"></i></a>
+        <a class="blog_cat_element" id="linux-cat" asp-page="/Index" asp-route-categoria="Linux"><i class="fab fa-linux"></i> Linux</a>
+                    <a class="blog_cat_element" id="windows-cat" asp-page="/Index" asp-route-categoria="Windows"><i class="fab fa-windows"></i> Windows</a>
+                    <a class="blog_cat_element" id="macos-cat" asp-page="/Index" asp-route-categoria="macOS"><i class="fab fa-apple"></i> macOS</a>
+                    <a class="blog_cat_element" id="android-cat" asp-page="/Index" asp-route-categoria="Android"><i class="fab fa-android"></i> Android</a>
+                    <a class="blog_cat_element" id="desarrollo-cat" asp-page="/Index" asp-route-categoria="Desarrollo"><i class="fas fa-code"></i> Desarrollo</a>
+                    <a class="blog_cat_element" id="gaming-cat" asp-page="/Index" asp-route-categoria="Gaming"><i class="fas fa-gamepad"></i> Gaming</a>
+                    <a class="blog_cat_element" id="hardware-cat" asp-page="/Index" asp-route-categoria="Hardware"><i class="fas fa-desktop"></i> Hardware</a>
                     
                 
-            </form>
-        </nav>
-        <div>
+                <form method="get" asp-page="buscar" id="buscador">
+                    <input type="text" name="q" placeholder="Buscar"/>
+                    <button type="submit"><i class="fas fa-search"></i></button>
+    
+    
+                </form>
+            </nav>
+    <div id="main_content" style=" padding-bottom: 20px">
+        <partial name="_CookieConsentPartial"/>
+
+        <div class="container">
             @RenderBody()
         </div>
-        
+
     </div>
 </div>
 

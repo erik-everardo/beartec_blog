@@ -46,7 +46,7 @@ else
             }
         </p>
         <hr>
-        <div>@Html.Raw(Model.articulo.cuerpo)</div>
+        <div id="contenido_articulo_html">@Html.Raw(Model.articulo.cuerpo)</div>
         @{
             var url = "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbeartec.azurewebsites.net%2Fleer%3Fid%3D" + Model.articulo.Id + "&src=sdkpreparse";
         }

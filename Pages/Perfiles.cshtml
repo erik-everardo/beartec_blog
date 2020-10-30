@@ -21,7 +21,7 @@
                 <p id="descripcion">@Model.usuario.parrafoDescripcion</p>
             </div>
             <div class="col-md-9 col-lg-10">
-                <h3>Publicaciones de @Model.usuario.username</h3>
+                <h3 class="encabezado-seccion">Publicaciones de @Model.usuario.username</h3>
                 @if (Model.articulosUsuario.Count < 1)
                 {
                     <div class="alert alert-info">
@@ -30,7 +30,7 @@
                 }
                         @foreach (var articulos in Model.articulosUsuario)
                         {
-                            <div class="card card-articulo">
+                            <div class="card card-articulo bg-dark">
                                 <div class="card-header">
                                     @articulos.titulo_publicacion
                                 </div>
