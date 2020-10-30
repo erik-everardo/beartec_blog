@@ -43,30 +43,14 @@ namespace erik_tech.Controllers
                 lastArticles.Add(new LastArticle()
                 {
                     titulo = article.titulo_publicacion,
-                    descripcion = GetDescription(article.cuerpo),
+                    descripcion = MetodosEstaticoGeneralesErikTech.GetDescription(article.cuerpo),
                     link = "https://beartec.azurewebsites.net/leer?id=" + article.Id
                 });
             }
 
             return lastArticles;
         }
-
-        private string GetDescription(string htmlBody)
-        {
-            var htmlDoc = new HtmlDocument();
-            htmlDoc.LoadHtml(htmlBody);
-            var extractedText = htmlDoc.DocumentNode.SelectSingleNode("//p").InnerText;
-            if (extractedText.Count() <= 80)
-            {
-                return extractedText;
-            }
-            else
-            {
-                return extractedText.Substring(0,80);
-            }
-            
-            
-        }
+        
 
 
     

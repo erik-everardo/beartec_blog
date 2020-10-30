@@ -3,6 +3,7 @@ using erik_tech.Pages;
 using erik_tech.Models;
 using System.Collections.Generic;
 using System.Linq;
+using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace erik_tech.Clases
@@ -29,6 +30,22 @@ namespace erik_tech.Clases
         public static string ObtenerNombreAutorPorId(int id,DbContextApp contexto)
         {
             return contexto.cuenta.Find(id).username;
+        }
+        public static string GetDescription(string htmlBody)
+        {
+            var htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(htmlBody);
+            var extractedText = htmlDoc.DocumentNode.SelectSingleNode("//p").InnerText;
+            if (extractedText.Count() <= 80)
+            {
+                return extractedText;
+            }
+            else
+            {
+                return extractedText.Substring(0,80);
+            }
+            
+            
         }
     }
 }
