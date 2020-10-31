@@ -27,14 +27,19 @@ namespace erik_tech.Controllers
         [HttpGet]
         public IEnumerable<LastArticle> Index()
         {
-            Articulo[] articles;
+            List<Articulo> articles;
             try
             {
-                articles = db.articulo.TakeLast(4).ToArray();
+                var table = db.articulo.ToList();
+                table.Reverse();
+                articles = table.TakeLast(4).ToList();
+
             }
             catch (Exception E)
             {
-                articles = db.articulo.ToArray();
+                var table = db.articulo.ToList();
+                table.Reverse();
+                articles = table;
             }
             
             List<LastArticle> lastArticles= new List<LastArticle>();
