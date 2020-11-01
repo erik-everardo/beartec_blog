@@ -1,4 +1,6 @@
 //Esta clase contiene varios metodos estaticos que pueden ser llamados desde cualquier pagina
+
+using System;
 using erik_tech.Pages;
 using erik_tech.Models;
 using System.Collections.Generic;
@@ -35,17 +37,38 @@ namespace erik_tech.Clases
         {
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(htmlBody);
-            var extractedText = htmlDoc.DocumentNode.SelectSingleNode("//p").InnerText;
+            String extractedText;
+            try
+            {
+                extractedText = htmlDoc.DocumentNode.SelectSingleNode("//p").InnerText;
+            }
+            catch (Exception e)
+            {
+                extractedText = String.Empty;
+            }
+            
             if (extractedText.Count() <= 80)
             {
                 return extractedText;
             }
-            else
+            return extractedText.Substring(0,80);
+
+        }
+
+        /*This method returns the first image it finds on the HTML code. If no image is found, it
+         will return the default banner*/
+        public static string GetAnImageURLFromHTML(string htmlBody)
+        {
+            var htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(htmlBody);
+            try
             {
-                return extractedText.Substring(0,80);
+                return htmlDoc.DocumentNode.SelectSingleNode("//img").Attributes["src"].Value;
             }
-            
-            
+            catch (Exception e)
+            {
+                return "https://beartec.site/images/banner.png";
+            }
         }
     }
 }
