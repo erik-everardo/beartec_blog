@@ -126,10 +126,6 @@
     if(!window.localStorage.getItem("oscuro")){
         window.localStorage.setItem("oscuro","off");
     }
-    
-    //envia un request al servidor de archivos para "despertarlo"
-    var fecha = new Date();
-    $.get("https://files-erik-tech.azurewebsites.net/despertar.php",{entrada:fecha.getTime()})
 </script>
 
 @RenderSection("Scripts", required: false)
