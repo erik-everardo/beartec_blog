@@ -7,8 +7,7 @@
 }
 else
 {
-    ViewData["title"] = @Model.articulo.titulo_publicacion;
-    ViewData["descripcion"] = @Model.articulo.titulo_publicacion;
+    
     <article class="container">
         <section>
             <h2>@Model.articulo.encabezado</h2><a asp-page="/DescargarArticulo" asp-route-id="@Model.articulo.Id" download="@(Model.articulo.titulo_publicacion + ".html")"><i class="fas fa-download"></i>Descargar</a>
