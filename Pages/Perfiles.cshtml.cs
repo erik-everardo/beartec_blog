@@ -29,15 +29,14 @@ namespace erik_tech.Pages
             fuePost = false;
             usuario = contexto.cuenta.Where(u => u.username.Equals(user)).Single();
             articulosUsuario = MetodosEstaticoGeneralesErikTech.ObtenerArticulosAutor(usuario.Id,contexto);
-            if (!usuario.parrafoDescripcion.Equals(""))
+            try
             {
                 ViewData["description"] = usuario.parrafoDescripcion;
             }
-            else
+            catch
             {
                 ViewData["description"] = "Perfil editor de " + usuario.username + " en BearTec Blog";
             }
-           
             return Page();
         }
         /*Cuando se responda un POST se envia codigo para ser renderizado en admin */
