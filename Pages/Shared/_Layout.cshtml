@@ -5,12 +5,16 @@
     <link rel="icon" href="~/images/favicon.ico" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta property="og:title" content="@ViewData["title"]"/>
-    @if ((Boolean)ViewData["isArticle"])
+    @if ((Boolean) ViewData["isArticle"])
     {
         <meta property="og:type" content="article"/>
+        <meta property="og:image" content="@ViewData["pictureURL"]">
+    }
+    else
+    {
+        <meta property="og:image" content="https://beartec.site/images/banner1.png">
     }
     <meta property="og:description" content="@ViewData["description"]"/>
-    
     <link rel="stylesheet" type="text/css" href="https://beartec.site/stylesheets/reset.css"/>
     <link rel="stylesheet" type="text/css" href="https://beartec.site/stylesheets/main.css"/>
     <title>BearTec - @ViewData["Title"]</title>
@@ -35,48 +39,43 @@
         <a id="brand" href="https://beartec.site/">
             <img src="https://beartec.site/logo.png" id="brand_picture" class="d-inline-block align-top">
             BearTec
-            </a>
+        </a>
         <ul id="main_menu">
             <li class="first_list">
                 <a href="https://beartec.site/" class="main_menu_first">Inicio</a>
             </li>
-            
             <li class="first_list">
                 <a href="/" class="main_menu_first main_current">Blog</a>
             </li>
         </ul>
-    </div> 
-</div> 
+    </div>
+</div>
 <div class="container">
     <nav id="blog_cat_nav" class="d-flex align-content-center">
-                
-        <a class="blog_cat_element" href="/"><i class="fas fa-home"></i></a>
+        <a class="blog_cat_element" href="/">
+            <i class="fas fa-home"></i>
+        </a>
         <a class="blog_cat_element" id="linux-cat" asp-page="/Index" asp-route-categoria="Linux"><i class="fab fa-linux"></i> Linux</a>
-                    <a class="blog_cat_element" id="windows-cat" asp-page="/Index" asp-route-categoria="Windows"><i class="fab fa-windows"></i> Windows</a>
-                    <a class="blog_cat_element" id="macos-cat" asp-page="/Index" asp-route-categoria="macOS"><i class="fab fa-apple"></i> macOS</a>
-                    <a class="blog_cat_element" id="android-cat" asp-page="/Index" asp-route-categoria="Android"><i class="fab fa-android"></i> Android</a>
-                    <a class="blog_cat_element" id="desarrollo-cat" asp-page="/Index" asp-route-categoria="Desarrollo"><i class="fas fa-code"></i> Desarrollo</a>
-                    <a class="blog_cat_element" id="gaming-cat" asp-page="/Index" asp-route-categoria="Gaming"><i class="fas fa-gamepad"></i> Gaming</a>
-                    <a class="blog_cat_element" id="hardware-cat" asp-page="/Index" asp-route-categoria="Hardware"><i class="fas fa-desktop"></i> Hardware</a>
-                    
-                
-                <form method="get" asp-page="buscar" id="buscador">
-                    <input type="text" name="q" placeholder="Buscar"/>
-                    <button type="submit"><i class="fas fa-search"></i></button>
-    
-    
-                </form>
-            </nav>
+        <a class="blog_cat_element" id="windows-cat" asp-page="/Index" asp-route-categoria="Windows"><i class="fab fa-windows"></i> Windows</a>
+        <a class="blog_cat_element" id="macos-cat" asp-page="/Index" asp-route-categoria="macOS"><i class="fab fa-apple"></i> macOS</a>
+        <a class="blog_cat_element" id="android-cat" asp-page="/Index" asp-route-categoria="Android"><i class="fab fa-android"></i> Android</a>
+        <a class="blog_cat_element" id="desarrollo-cat" asp-page="/Index" asp-route-categoria="Desarrollo"><i class="fas fa-code"></i> Desarrollo</a>
+        <a class="blog_cat_element" id="gaming-cat" asp-page="/Index" asp-route-categoria="Gaming"><i class="fas fa-gamepad"></i> Gaming</a>
+        <a class="blog_cat_element" id="hardware-cat" asp-page="/Index" asp-route-categoria="Hardware"><i class="fas fa-desktop"></i> Hardware</a>
+        <form method="get" asp-page="buscar" id="buscador">
+            <input type="text" name="q" placeholder="Buscar"/>
+            <button type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </nav>
     <div id="main_content" style=" padding-bottom: 20px">
         <partial name="_CookieConsentPartial"/>
-
         <div class="container">
             @RenderBody()
         </div>
-
     </div>
 </div>
-
 <div id="footer">
     <div class="footer_info">
         <h4>Quiénes somos</h4>

@@ -26,6 +26,7 @@ namespace erik_tech.Pages
                 articulo = contexto.articulo.Where(a => a.Id.Equals(int.Parse(id))).Single();
                 ViewData["title"] = articulo.titulo_publicacion;
                 ViewData["description"] = MetodosEstaticoGeneralesErikTech.GetDescription(articulo.cuerpo);
+                ViewData["pictureURL"] = MetodosEstaticoGeneralesErikTech.GetAnImageURLFromHTML(articulo.cuerpo);
             }
             catch (Exception e)
             {
