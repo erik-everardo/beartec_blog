@@ -214,8 +214,8 @@ function descartarArticuloEnEdicion() {
     encabezado_en_publicar.value = "";
     cuerpo_textarea.value = "";
     encabezado_DOM.value = "";
-    campo_oculto_cuerpo_DOM = "";
-    campor_oculto_encabezado_DOM = "";
+    campo_oculto_cuerpo_DOM.value = "";
+    campo_oculto_encabezado_DOM.value = "";
     //elementos del DOM
 
     //desmarca todas las categorias
