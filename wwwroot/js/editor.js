@@ -381,3 +381,54 @@ function obtenerHoraEnFormato12(horas24,minutos24,segundos24){
         return horas + ":" + minutos + ":" + segundos + " a.m.";
     }
 }
+
+boton_img.on("click", function() {
+    let storageRef = storage.ref();
+    let userImagesRef = storageRef.child('images/' + idUsuario);
+    let imagesListGroup = document.querySelector("#imgs_selector_list");
+    imagesListGroup.innerHTML = "";
+    userImagesRef.listAll().then(function (result){
+        result.items.forEach(function (item){
+            
+            item.getDownloadURL().then(function(url){
+                let itemToInsert = document.createElement("a");
+                itemToInsert.classList.add("list-group-item-action");
+                itemToInsert.href = "#";
+                item.getMetadata().then(function(result) {
+                    itemToInsert.innerHTML = result.name;
+                });
+                itemToInsert.addEventListener("click", function () {
+                    insertImageOnText(url);
+                });
+                imagesListGroup.appendChild(itemToInsert);
+            });
+            
+            
+
+        });
+
+    });
+})
+
+function insertImageOnText(url) {
+    if (textarea_cuerpo.selectionStart === textarea_cuerpo.selectionEnd) {
+        textoDespuesDeSeleccion = "";
+        textoAntesDeSeleccion = "";
+
+        for (i = 0; i < textarea_cuerpo.selectionStart; i++) {
+            textoAntesDeSeleccion += textarea_cuerpo.value.charAt(i);
+
+        }
+        for (i = textarea_cuerpo.selectionStart; i < textarea_cuerpo.value.length; i++) {
+            textoDespuesDeSeleccion += textarea_cuerpo.value.charAt(i);
+        }
+        let img_tag = '<img src=" ' + url + '" class="mw-100">';
+        textarea_cuerpo.value = textoAntesDeSeleccion + img_tag + textoDespuesDeSeleccion;
+
+        textarea_cuerpo.selectionStart = textoAntesDeSeleccion.length + img_tag.length;
+        textarea_cuerpo.selectionEnd = textoAntesDeSeleccion.length + img_tag.length;
+        textarea_cuerpo.focus();
+
+    }
+    reflejarCodigoEnVistaPrevia();
+}

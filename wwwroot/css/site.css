@@ -336,3 +336,7 @@ article {
 #resultados_busqueda{
     color: white;
 }
+#imgs_selector_list {
+    max-height: 400px;
+    overflow: auto;
+}
