@@ -47,11 +47,11 @@ namespace erik_tech.Clases
                 extractedText = String.Empty;
             }
             
-            if (extractedText.Count() <= 80)
+            if (extractedText.Count() <= 140)
             {
                 return extractedText;
             }
-            return extractedText.Substring(0,80);
+            return extractedText.Substring(0,140);
 
         }
 
