@@ -32,7 +32,7 @@ namespace erik_tech.Controllers
             {
                 var table = db.articulo.ToList();
                 table.Reverse();
-                articles = table.TakeLast(4).ToList();
+                articles = table.Take(4).ToList();
 
             }
             catch (Exception E)
