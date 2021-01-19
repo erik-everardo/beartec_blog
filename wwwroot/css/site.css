@@ -340,3 +340,8 @@ article {
     max-height: 400px;
     overflow: auto;
 }
+
+/* list-style inside paragraph should be as usual */
+article.container ul{
+    list-style: unset;!important;
+}
