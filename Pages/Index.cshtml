@@ -1,129 +1,140 @@
 ﻿@page "{categoria?}"
 
+@using erik_tech.Clases
 @model IndexModel
 @{
     ViewData["Title"] = "Blog";
 }
+<div class="row">
+    <div class="col-12">
+        <div class="m-2">
+            @if (@Model.solicitoCategoria && !@Model.categoriaErronea)
+            {
+                <h1 class="encabezado-seccion">Articulos sobre @Model.cat</h1>
+                @if (Model.articulos.Count == 0)
+                {
+                    <div class="alert alert-info">No se han escrito artículos que traten de @Model.cat</div>
+                }
+                else
+                {
+                    @foreach (var articulo in Model.articulos)
+                    {
+                        <div class="card-articulo">
+                            <a asp-page="leer" asp-route-id="@articulo.Id" class="card-articulo-titulo-card">@articulo.titulo_publicacion</a>
+                            <p class="card-articulo-categorias">
+                                
+                                                        @if (articulo.Linux)
+                                                        {
+                                                            <i class="fab fa-linux"></i>
+                                                        }
+                                                        @if (articulo.Windows)
+                                                        {
+                                                            <i class="fab fa-windows"></i>
+                                                        }
+                                                        @if (articulo.Macos)
+                                                        {
+                                                            <i class="fab fa-apple"></i>
+                                                        }
+                                                        @if (articulo.Android)
+                                                        {
+                                                            <i class="fab fa-android"></i>
+                                                        }
+                                                        @if (articulo.Desarrollo)
+                                                        {
+                                                            <i class="fas fa-code"></i>
+                                                        }
+                                                        @if (articulo.Gaming)
+                                                        {
+                                                            <i class="fas fa-gamepad"></i>
+                                                        }
+                                                        @if (articulo.Hardware)
+                                                        {
+                                                            <i class="fas fa-desktop"></i>
+                                                        }
+                                                        @if (articulo.Otra)
+                                                        {
+                                                            <i class="fas fa-question"></i>
+                                                        }
+                                                    </p>
+                            <p>
+                                <a asp-page="Perfiles" asp-route-user="@Model.NombreAutorPorId(articulo.autor_id)">
+                                    @Model.NombreAutorPorId(articulo.autor_id)
+                                </a>
+                            </p>
+                            
+                            <p><a asp-page="Perfiles" asp-route-user="@Model.NombreAutorPorId(articulo.autor_id)"></a></p>
+                                
+        <p>@MetodosEstaticoGeneralesErikTech.GetDescription(articulo.cuerpo)</p>
+                                
+        
+                        </div>
+                    }
+                }
+            }
+            @if (!@Model.solicitoCategoria)
+            {
+                <h4 style="margin: 20px;" class="encabezado-seccion">Últimos artículos</h4>
+                @if (Model.articulos.Count == 0)
+                {
+                    <div class="alert alert-info">Aun no se han escrito artículos</div>
+                }
+                else
+                {
+                    @foreach (var articulo in Model.articulos)
+                    {
+                        <div class="card-articulo">
+                            <a  asp-page="leer" asp-route-id="@articulo.Id" class="card-articulo-titulo-card">@articulo.titulo_publicacion</a>
+                            <p class="card-articulo-categorias">
+                                                        
+                            
+                                                        @if (articulo.Linux)
+                                                        {
+                                                            <i class="fab fa-linux"></i>
+                                                        }
+                                                        @if (articulo.Windows)
+                                                        {
+                                                            <i class="fab fa-windows"></i>
+                                                        }
+                                                        @if (articulo.Macos)
+                                                        {
+                                                            <i class="fab fa-apple"></i>
+                                                        }
+                                                        @if (articulo.Android)
+                                                        {
+                                                            <i class="fab fa-android"></i>
+                                                        }
+                                                        @if (articulo.Desarrollo)
+                                                        {
+                                                            <i class="fas fa-code"></i>
+                                                        }
+                                                        @if (articulo.Gaming)
+                                                        {
+                                                            <i class="fas fa-gamepad"></i>
+                                                        }
+                                                        @if (articulo.Hardware)
+                                                        {
+                                                            <i class="fas fa-desktop"></i>
+                                                        }
+                                                        @if (articulo.Otra)
+                                                        {
+                                                            <i class="fas fa-question"></i>
+                                                        }
+                                                    </p>
+                            <p>
+                                <a asp-page="Perfiles" asp-route-user="@Model.NombreAutorPorId(articulo.autor_id)">
+                                    @Model.NombreAutorPorId(articulo.autor_id)
+                                </a>
+                            </p>
+                            <p>@MetodosEstaticoGeneralesErikTech.GetDescription(articulo.cuerpo)</p>
+                            </div>
+                    }
+                }
+            }
+            @if (Model.categoriaErronea)
+            {
+                <p>Error: la categoria no existe</p>
+            }
+        </div>
 
-<div class="m-2">
-    @if (@Model.solicitoCategoria && !@Model.categoriaErronea)
-    {
-        <h4>Articulos sobre @Model.cat</h4>
-        @if (Model.articulos.Count == 0)
-        {
-            <div class="alert alert-info">No se han escrito artículos que traten de @Model.cat</div>
-        }
-        else
-        {
-            @foreach (var articulo in Model.articulos)
-            {
-                <div class="card card-articulo">
-                    <div class="card-header">@articulo.titulo_publicacion</div>
-                    <div class="card-body">
-                        <p>Autor: @Model.NombreAutorPorId(articulo.autor_id)</p>
-                        <p>
-                            Categorias:
-    
-                            @if (articulo.Linux)
-                            {
-                                <i class="fab fa-linux"></i>
-                            }
-                            @if (articulo.Windows)
-                            {
-                                <i class="fab fa-windows"></i>
-                            }
-                            @if (articulo.Macos)
-                            {
-                                <i class="fab fa-apple"></i>
-                            }
-                            @if (articulo.Android)
-                            {
-                                <i class="fab fa-android"></i>
-                            }
-                            @if (articulo.Desarrollo)
-                            {
-                                <i class="fas fa-code"></i>
-                            }
-                            @if (articulo.Gaming)
-                            {
-                                <i class="fas fa-gamepad"></i>
-                            }
-                            @if (articulo.Hardware)
-                            {
-                                <i class="fas fa-desktop"></i>
-                            }
-                            @if (articulo.Otra)
-                            {
-                                <i class="fas fa-question"></i>
-                            }
-                        </p>
-                        <a class="btn btn-primary" asp-page="leer" asp-route-id="@articulo.Id">Leer</a>
-                        <a class="btn btn-primary" asp-page="DescargarArticulo" asp-route-id="@articulo.Id">Descargar</a>
-                    </div>
-                </div>
-            }
-        }
-    }
-    @if (!@Model.solicitoCategoria)
-    {
-        <h4 style="margin: 20px;">Últimos artículos</h4>
-        @if (Model.articulos.Count == 0)
-        {
-            <div class="alert alert-info">Aun no se han escrito artículos</div>
-        }
-        else
-        {
-            @foreach (var articulo in Model.articulos)
-            {
-                <div class="card card-articulo">
-                    <div class="card-header">@articulo.titulo_publicacion</div>
-                    <div class="card-body">
-                        <p>Autor: @Model.NombreAutorPorId(articulo.autor_id)</p>
-                        <p>
-                            Categorias:
-    
-                            @if (articulo.Linux)
-                            {
-                                <i class="fab fa-linux"></i>
-                            }
-                            @if (articulo.Windows)
-                            {
-                                <i class="fab fa-windows"></i>
-                            }
-                            @if (articulo.Macos)
-                            {
-                                <i class="fab fa-apple"></i>
-                            }
-                            @if (articulo.Android)
-                            {
-                                <i class="fab fa-android"></i>
-                            }
-                            @if (articulo.Desarrollo)
-                            {
-                                <i class="fas fa-code"></i>
-                            }
-                            @if (articulo.Gaming)
-                            {
-                                <i class="fas fa-gamepad"></i>
-                            }
-                            @if (articulo.Hardware)
-                            {
-                                <i class="fas fa-desktop"></i>
-                            }
-                            @if (articulo.Otra)
-                            {
-                                <i class="fas fa-question"></i>
-                            }
-                        </p>
-                        <a class="btn btn-primary" asp-page="leer" asp-route-id="@articulo.Id">Leer</a>
-                        <a class="btn btn-primary" asp-page="DescargarArticulo" asp-route-id="@articulo.Id" download="@(articulo.titulo_publicacion + ".html")">Descargar</a>
-                    </div>
-                </div>
-            }
-        }
-    }
-    @if (Model.categoriaErronea)
-    {
-        <p>Error: la categoria no existe</p>
-    }
+    </div>
 </div>

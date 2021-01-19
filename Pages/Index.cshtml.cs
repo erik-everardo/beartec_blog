@@ -18,6 +18,10 @@ namespace erik_tech.Pages
         public bool categoriaErronea;
         public string cat;
 
+        private const string thisPageDescription = 
+            "BearTec. Visita nuestro blog. Somos un grupo de estudiantes de ingenieria apasionados " +
+            "por la tecnologia y el desarrollo de la misma.";
+
         public string NombreAutorPorId(int id)
         {
             return MetodosEstaticoGeneralesErikTech.ObtenerNombreAutorPorId(id, contexto);
@@ -28,6 +32,8 @@ namespace erik_tech.Pages
         }
         public IActionResult OnGet([FromRoute] string categoria)
         {
+            ViewData["isArticle"] = false;
+            ViewData["description"] = thisPageDescription;
             if(categoria == null)
             {
                 solicitoCategoria = false;

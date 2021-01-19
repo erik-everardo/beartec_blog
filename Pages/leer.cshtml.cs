@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using erik_tech.Clases;
 using erik_tech.Models;
 using Microsoft.AspNetCore.Html;
 
@@ -21,7 +22,11 @@ namespace erik_tech.Pages
         {
             try
             {
+                ViewData["isArticle"] = true;
                 articulo = contexto.articulo.Where(a => a.Id.Equals(int.Parse(id))).Single();
+                ViewData["title"] = articulo.titulo_publicacion;
+                ViewData["description"] = MetodosEstaticoGeneralesErikTech.GetDescription(articulo.cuerpo);
+                ViewData["pictureURL"] = MetodosEstaticoGeneralesErikTech.GetAnImageURLFromHTML(articulo.cuerpo);
             }
             catch (Exception e)
             {

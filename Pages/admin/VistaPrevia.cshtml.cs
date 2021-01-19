@@ -17,6 +17,8 @@ namespace erik_tech.Pages.admin
         public void OnPost(int idUsuario,string nombrePublicacion,
             string encabezadoPublicacion,string cuerpo)
         {
+            ViewData["isArticle"] = false;
+            ViewData["description"] = "_";
             articulo = new Articulo()
             {
                 autor_id = idUsuario,

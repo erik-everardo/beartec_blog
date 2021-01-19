@@ -1,8 +1,11 @@
 //Esta clase contiene varios metodos estaticos que pueden ser llamados desde cualquier pagina
+
+using System;
 using erik_tech.Pages;
 using erik_tech.Models;
 using System.Collections.Generic;
 using System.Linq;
+using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace erik_tech.Clases
@@ -29,6 +32,43 @@ namespace erik_tech.Clases
         public static string ObtenerNombreAutorPorId(int id,DbContextApp contexto)
         {
             return contexto.cuenta.Find(id).username;
+        }
+        public static string GetDescription(string htmlBody)
+        {
+            var htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(htmlBody);
+            String extractedText;
+            try
+            {
+                extractedText = htmlDoc.DocumentNode.SelectSingleNode("//p").InnerText;
+            }
+            catch (Exception e)
+            {
+                extractedText = String.Empty;
+            }
+            
+            if (extractedText.Count() <= 80)
+            {
+                return extractedText;
+            }
+            return extractedText.Substring(0,80);
+
+        }
+
+        /*This method returns the first image it finds on the HTML code. If no image is found, it
+         will return the default banner*/
+        public static string GetAnImageURLFromHTML(string htmlBody)
+        {
+            var htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(htmlBody);
+            try
+            {
+                return htmlDoc.DocumentNode.SelectSingleNode("//img").Attributes["src"].Value;
+            }
+            catch (Exception e)
+            {
+                return "https://beartec.site/images/banner.png";
+            }
         }
     }
 }

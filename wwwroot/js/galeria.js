@@ -40,16 +40,6 @@ function definirAlturaListaDeImagenes() {
     document.getElementById("cuadro_izq_galeria").style.maxHeight = document.getElementById("lista_imagenes").style.maxHeight;
 }
 
-//funcion para abrir vista previa de una imagen
-function vistaPreviaImagen(url) {
-    //pantalla de movil: ocultar cuadro de vista previa y abrir en nueva penstaña la imagen
-    if (window.innerWidth<=768) {
-        window.open(url,"_blank");
-    } else {
-        document.getElementById("vista_previa_imagen_galeria").innerHTML = 
-            "<a href='" + url + "' target='_blank'><img class='w-100' src='" + url + "'></a>"
-    }
-}
 var inputFile = document.querySelector("#archivo_imagen_propia");
 
 $('#btn_subir_imagen_propia').on('click',function(){
@@ -80,15 +70,28 @@ function insertImage(item){
     var imageCard = document.createElement("div");
     imageCard.classList
         .add("card");
+    imageCard.classList
+        .add("custom-card-gallery");
     var imageElement = document.createElement("img");
     imageElement.classList
         .add("card-img-top");
+    imageElement.classList
+        .add("custom-card-gallery-image");
+    var deleteButton = document.createElement("button");
+    deleteButton.classList
+        .add("btn");
+    deleteButton.classList
+        .add("btn-danger");
+    deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
     
     item.getDownloadURL().then(function (url){
         console.log(url);
         imageElement.src = url;
         imageCard.appendChild(imageElement);
         cardsContainer.appendChild(imageCard)
+        imageElement.onclick = function(){
+          window.open(url,"_blank");  
+        };
         return item;
     }).then(function(item){
         item.getMetadata().then(function(res){
@@ -107,30 +110,22 @@ function insertImage(item){
             // meto los elementos al card body
             cardBodyElement.appendChild(cardBodyTitleElement);
             cardBodyElement.appendChild(cardBodyParagraphElement);
+            cardBodyElement.appendChild(deleteButton);
 
             // meto el card body a card
             imageCard.appendChild(cardBodyElement);
-        })
-    })
-    
-}
-
-
-
-
-function eliminarImagen(idImagen){
-    if (confirm("¿Seguro que quieres eliminar la imagen?")) {
-        $.post("/admin/Imagenes",{
-            accion:"borrar",
-            idImagen:idImagen,
-            idUsuario:idUsuario,
-            password:passwordActual,
-            __RequestVerificationToken: tokenDeVerificacion
-        },function(){
-            solicitarImagenesGaleria();
-            resetearVistaPreviaGaleria();
+            
+            deleteButton.onclick = function () {
+                // function defined at LayoutDashboard.cshtml
+                
+                if(confirm("¿Quieres eliminar " + res.name + "?")){
+                    deleteImage(res.fullPath);
+                }
+            }
         });
-    }
+        
+    });
+    
 }
 function resetearVistaPreviaGaleria(){
     document.getElementById("vista_previa_imagen_galeria").innerHTML =

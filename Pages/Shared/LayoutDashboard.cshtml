@@ -104,9 +104,17 @@
   // reference to public storage
   var storage = firebase.storage();
   
+  /*
+  * This function first changes what the button says, indicating the state
+  * This function uploads the image from the input element (inputFile)
+  */
   function subirImagen(nombre){
-      
+      let uploadPictureButton = document.getElementById("btn_subir_imagen_propia");
       if(inputFile.files.length > 0){
+          // update button content
+          uploadPictureButton.setAttribute("disabled","true");
+          uploadPictureButton.innerHTML = "Subiendo";
+          
           // Create a root reference
           var storageRef = storage.ref();
   
@@ -118,9 +126,13 @@
           
           var imageFile = inputFile.files[0];
           ref.put(imageFile).then(function(snapshot) {
-            alert("Imagen cargada correctamente");
-            setUpImagesSpace();
-            listImages();
+              // update button content
+              uploadPictureButton.removeAttribute("disabled");
+              uploadPictureButton.innerHTML = "Subir";
+              
+              alert("Imagen cargada correctamente");
+              setUpImagesSpace();
+              listImages();
           });
 
       }else{
@@ -139,6 +151,19 @@
           
       });
       
+  }
+  function deleteImage(fullPath){
+      var storageRef = storage.ref();
+      var imageRef = storageRef.child(fullPath);
+      
+      // Delete the file
+      imageRef.delete().then(function() {
+        setUpImagesSpace();
+        listImages();
+      }).catch(function(error) {
+        console.error("Could not delete image: " + error);
+      });
+
   }
 </script>
 

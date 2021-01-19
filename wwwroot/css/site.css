@@ -9,6 +9,7 @@ html {
     height: 100%;
 }
 
+
 @media (min-width: 768px) {
     html {
         font-size: 16px;
@@ -88,6 +89,7 @@ button.accept-policy {
 
 .card-articulo {
     margin: 10px;
+    color:white;
 }
 
 #capa_perfil {
@@ -113,6 +115,7 @@ button.accept-policy {
 
 .encabezado-seccion {
     margin-bottom: 10px;
+    color:white;
 }
 
 .resultado-individual-busqueda {
@@ -233,6 +236,7 @@ button.accept-policy {
     word-wrap: break-word;
     overflow-wrap: break-word;
     margin: 0;
+    color: white;
 }
 #descripcion {
     margin-bottom: 20px;
@@ -251,7 +255,6 @@ button.accept-policy {
     white-space: nowrap;
     overflow: auto;
     margin-bottom: 10px;
-    background-color: black;
     position: sticky;
     top:0;
     z-index: 1;
@@ -261,11 +264,14 @@ button.accept-policy {
     display: inline-block;
     padding: 8px;
     color: white;
-    margin: 0;
-    font-size: 14pt;
+    margin: 3px;
+    border-radius: 10px;
+    font-size: 1rem;
+    border: 1px #f8f9fa solid;
+    opacity: 0.7;
 }
 #blog_cat_nav > .blog_cat_element:hover{
-    background-color: #005cbf;
+    opacity: 1;
     text-decoration: none;
     color: white;
 }
@@ -292,19 +298,45 @@ button.accept-policy {
 #buscador{
     font-size: 12pt;
     display: inline-block;
-    margin-left: 8px;
+    margin: auto 0 auto auto;
 }
 #buscador > input{
-    background-color: #212529;
-    color: white;
+    background-color: #BCC0C4;
+    color: black;
     border: none;
     padding: 8px;
-    
+    border-radius: 10px 0 0 10px;
+    margin-right: 0;
 }
 #buscador > button{
     color: white;
-    background-color: darkgreen;
+    background-color: #2aacc8;
     border: none;
-    margin: 0;
     padding: 8px;
+    border-radius: 0 10px 10px 0;
+    margin-left: 0;
+}
+
+.custom-card-gallery:hover{
+    opacity: 70%;
+}
+.custom-card-gallery-image:hover{
+    opacity: 60%;
+    cursor: pointer;
+}
+.card-articulo-titulo-card{
+    font-size: larger;
+}
+.card-articulo-categorias{
+    margin:0;!important;
+}
+article {
+    color:white;
+}
+#resultados_busqueda{
+    color: white;
+}
+#imgs_selector_list {
+    max-height: 400px;
+    overflow: auto;
 }

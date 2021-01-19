@@ -108,7 +108,7 @@ function abrir_editor() {
     capa_editor_DOM.style.display = "block";
     ajustarDimensionesCuerpoEditor();
     activarLinkDeBarra(1);
-    document.title = "Nuevo artículo - erik.tech";
+    document.title = "Nuevo artículo - BearTec Editores";
     estaAbiertoEditor = true;
 }
 
@@ -139,7 +139,7 @@ function abrir_mis_articulos() {
     },2000)
     
     activarLinkDeBarra(2);
-    document.title = "Mis artículos - erik.tech";
+    document.title = "Mis artículos - BearTec Editores";
     estaAbiertoMisArticulos = true;
 }
 
@@ -154,7 +154,7 @@ function abrir_perfil(){
     if (estaAbiertoMisArticulos) cerrar_mis_articulos();
     if (estaAbiertoAjustes) cerrarAjustes();
     if (estaAbiertoGaleria) cerrarGaleria();
-    document.title = "Perfil - erik.tech";
+    document.title = "Perfil - BearTec Editores";
 }
 
 function cerrarPerfil() {
@@ -170,7 +170,7 @@ function abrir_ajustes(){
     capa_ajustes_DOM.style.display = "block";
     if (modoOscuro) $('#modo_oscuro').prop('checked', true);
     else $('#modo_oscuro').prop('checked', false);
-    document.title = "Ajustes - erik.tech";
+    document.title = "Ajustes - BearTec Editores";
 }
 
 function cerrarAjustes() {
@@ -186,7 +186,7 @@ function abrirGaleria() {
     capa_galeria.style.display = "block";
     activarLinkDeBarra(3);
     definirAlturaListaDeImagenes();
-    document.title = "Galería - erik.tech";
+    document.title = "Galería - BearTec Editores";
     setUpImagesSpace();
     listImages();
 }
@@ -214,8 +214,8 @@ function descartarArticuloEnEdicion() {
     encabezado_en_publicar.value = "";
     cuerpo_textarea.value = "";
     encabezado_DOM.value = "";
-    campo_oculto_cuerpo_DOM = "";
-    campor_oculto_encabezado_DOM = "";
+    campo_oculto_cuerpo_DOM.value = "";
+    campo_oculto_encabezado_DOM.value = "";
     //elementos del DOM
 
     //desmarca todas las categorias

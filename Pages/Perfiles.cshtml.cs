@@ -9,6 +9,7 @@ namespace erik_tech.Pages
 {
     public class PerfilModel : PageModel
     {
+        
         private readonly DbContextApp contexto;
         public Cuenta usuario;
         public bool fuePost;
@@ -24,15 +25,24 @@ namespace erik_tech.Pages
         //Cuando es solicitado publicamente. Se abre directamente esta pagina
         public IActionResult OnGet(string user)
         {
+            ViewData["isArticle"] = false;
             fuePost = false;
             usuario = contexto.cuenta.Where(u => u.username.Equals(user)).Single();
             articulosUsuario = MetodosEstaticoGeneralesErikTech.ObtenerArticulosAutor(usuario.Id,contexto);
-           
+            try
+            {
+                ViewData["description"] = usuario.parrafoDescripcion;
+            }
+            catch
+            {
+                ViewData["description"] = "Perfil editor de " + usuario.username + " en BearTec Blog";
+            }
             return Page();
         }
         /*Cuando se responda un POST se envia codigo para ser renderizado en admin */
         public IActionResult OnPost(string user)
         {
+            ViewData["isArticle"] = false;
             fuePost = true;
             usuario = contexto.cuenta.Where(u => u.username.Equals(user)).Single();
             articulosUsuario = MetodosEstaticoGeneralesErikTech.ObtenerArticulosAutor(usuario.Id,contexto);

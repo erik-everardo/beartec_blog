@@ -4,56 +4,66 @@
 @{
     ViewData["Title"] = "Buscar: " + Model.busqueda;
 }
-<div class="container">
-    <h1>Resultados de búsqueda para: @Model.busqueda</h1>
-    @{
-        if (Model.ArticuloEncontrados.Count == 0)
-        {
-            <p>No se ha encontrado ningun artículo que corresponda a tu búsqueda.</p>
-        }
-        else
-        {
-            foreach (var articulo in Model.ArticuloEncontrados)
-            {
-                <div class="resultado-individual-busqueda">
-                    <a asp-page="/leer" asp-route-id="@articulo.Id">@articulo.titulo_publicacion</a>
-                    <p>
-                        @if (articulo.Android)
-                        {
-                            <i class="fab fa-android"></i>
-                        }
-                        @if (articulo.Desarrollo)
-                        {
-                            <i class="fas fa-code"></i>
-                        }
-                        @if (articulo.Linux)
-                        {
-                            <i class="fab fa-linux"></i>
-                        }
-                        @if (articulo.Windows)
-                        {
-                            <i class="fab fa-windows"></i>
-                        }
-                        @if (articulo.Gaming)
-                        {
-                            <i class="fas fa-gamepad"></i>
-                        }
-                        @if (articulo.Hardware)
-                        {
-                            <i class="fas fa-desktop"></i>
-                        }
-                        @if (articulo.Macos)
-                        {
-                            <i class="fab fa-apple"></i>
-                        }
-                        @if (articulo.Otra)
-                        {
-                            <i class="fas fa-question"></i>
-                        }
-                    </p>
-                    <p>Autor: <a asp-page="/Perfiles" asp-route-user="@Model.NombreAutorPorId(articulo.autor_id)">@Model.NombreAutorPorId(articulo.autor_id)</a></p>
-                </div>
-            }
-        }
-    }
+<div class="row">
+    <h1 class="encabezado-seccion">Resultados de búsqueda para: @Model.busqueda</h1>
 </div>
+<div class="row" id="resultados_busqueda">
+    <div class="col-12">
+       @{
+               if (Model.ArticuloEncontrados.Count == 0)
+               {
+                   <p>No se ha encontrado ningun artículo que corresponda a tu búsqueda.</p>
+               }
+               else
+               {
+                   foreach (var articulo in Model.ArticuloEncontrados)
+                   {
+                       <div class="resultado-individual-busqueda">
+                           <a asp-page="/leer" asp-route-id="@articulo.Id">@articulo.titulo_publicacion</a>
+                           <p>
+                               @if (articulo.Android)
+                               {
+                                   <i class="fab fa-android"></i>
+                               }
+                               @if (articulo.Desarrollo)
+                               {
+                                   <i class="fas fa-code"></i>
+                               }
+                               @if (articulo.Linux)
+                               {
+                                   <i class="fab fa-linux"></i>
+                               }
+                               @if (articulo.Windows)
+                               {
+                                   <i class="fab fa-windows"></i>
+                               }
+                               @if (articulo.Gaming)
+                               {
+                                   <i class="fas fa-gamepad"></i>
+                               }
+                               @if (articulo.Hardware)
+                               {
+                                   <i class="fas fa-desktop"></i>
+                               }
+                               @if (articulo.Macos)
+                               {
+                                   <i class="fab fa-apple"></i>
+                               }
+                               @if (articulo.Otra)
+                               {
+                                   <i class="fas fa-question"></i>
+                               }
+                           </p>
+                           <p>Autor: <a asp-page="/Perfiles" asp-route-user="@Model.NombreAutorPorId(articulo.autor_id)">@Model.NombreAutorPorId(articulo.autor_id)</a></p>
+                       </div>
+                   }
+               }
+           } 
+    </div>
+    
+
+
+</div>
+
+
+                    

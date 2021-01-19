@@ -24,7 +24,7 @@ namespace erik_tech.Pages
         }
         public void OnGet([FromQuery] string q)
         {
-
+            ViewData["isArticle"] = false;
             try
             {
                 busqueda = q.ToLower();
