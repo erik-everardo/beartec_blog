@@ -67,7 +67,8 @@ namespace erik_tech.Clases
             }
             catch (Exception e)
             {
-                return "https://beartec.site/images/banner.png";
+                // cambiar esto por el nuevo banner del canal
+                return "https://beartec.site/images/banner1.png";
             }
         }
     }
