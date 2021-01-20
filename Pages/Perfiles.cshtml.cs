@@ -27,7 +27,7 @@ namespace erik_tech.Pages
         {
             ViewData["isArticle"] = false;
             fuePost = false;
-            usuario = contexto.cuenta.Where(u => u.username.Equals(user)).Single();
+            usuario = contexto.cuenta.Single(u => u.username.Equals(user));
             if (usuario == null)
             {
                 return NotFound();
@@ -48,7 +48,7 @@ namespace erik_tech.Pages
         {
             ViewData["isArticle"] = false;
             fuePost = true;
-            usuario = contexto.cuenta.Where(u => u.username.Equals(user)).Single();
+            usuario = contexto.cuenta.Single(u => u.username.Equals(user));
             articulosUsuario = MetodosEstaticoGeneralesErikTech.ObtenerArticulosAutor(usuario.Id,contexto);
             
             return Page();
