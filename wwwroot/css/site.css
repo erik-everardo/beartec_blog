@@ -240,6 +240,8 @@ button.accept-policy {
 }
 #descripcion {
     margin-bottom: 20px;
+    max-height: 400px;
+    overflow: auto;
 }
 
 #descripcion::before{
