@@ -28,6 +28,10 @@ namespace erik_tech.Pages
             ViewData["isArticle"] = false;
             fuePost = false;
             usuario = contexto.cuenta.Where(u => u.username.Equals(user)).Single();
+            if (usuario == null)
+            {
+                return NotFound();
+            }
             articulosUsuario = MetodosEstaticoGeneralesErikTech.ObtenerArticulosAutor(usuario.Id,contexto);
             try
             {
