@@ -1,0 +1,13 @@
+﻿h1,h2,h3,h4,h5,h6 {
+    color:white;
+}
+.recommended-article {
+    background-color: #1b1e21;
+    color:white;
+    padding: 15px;
+}
+.recommended-article:hover {
+    background-color: #343a40;
+    color:white;
+    text-decoration: none;
+}

@@ -17,6 +17,7 @@
     <meta property="og:description" content="@ViewData["description"]"/>
     <link rel="stylesheet" type="text/css" href="https://beartec.site/stylesheets/reset.css"/>
     <link rel="stylesheet" type="text/css" href="https://beartec.site/stylesheets/main.css"/>
+    <link rel="stylesheet" type="text/css" href="~/css/blog_styling.css"/>
     <title>BearTec - @ViewData["Title"]</title>
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"/>
@@ -51,7 +52,7 @@
         </ul>
     </div>
 </div>
-<div class="container">
+<div class="container-fluid">
     <nav id="blog_cat_nav" class="d-flex align-content-center">
         <a class="blog_cat_element" href="/">
             <i class="fas fa-home"></i>
@@ -72,7 +73,7 @@
     </nav>
     <div id="main_content" style=" padding-bottom: 20px">
         <partial name="_CookieConsentPartial"/>
-        <div class="container">
+        <div class="container-fluid">
             @RenderBody()
         </div>
     </div>
