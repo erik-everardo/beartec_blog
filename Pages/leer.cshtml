@@ -58,7 +58,7 @@ else
             <h4>Leer más</h4>
             @foreach (var articulo in Model.recommendedArticles)
             {
-                <a class="recommended-article d-flex flex-column" asp-page="leer" asp-route-id="@articulo.Id">
+                <a class="recommended-article d-flex flex-column mb-1" asp-page="leer" asp-route-id="@articulo.Id">
                     <img class="w-100" src="@MetodosEstaticoGeneralesErikTech.GetAnImageURLFromHTML(articulo.cuerpo)">
                     <h5>@articulo.titulo_publicacion</h5>
                     <p>@MetodosEstaticoGeneralesErikTech.GetDescription(articulo.cuerpo)</p>
