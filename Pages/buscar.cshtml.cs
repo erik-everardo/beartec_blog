@@ -28,8 +28,37 @@ namespace erik_tech.Pages
             try
             {
                 busqueda = q.ToLower();
+                
+                busqueda = busqueda.Replace("á", "a");
+                busqueda = busqueda.Replace("é", "e");
+                busqueda = busqueda.Replace("í", "i");
+                busqueda = busqueda.Replace("ó", "o");
+                busqueda = busqueda.Replace("ú", "u");
+                
                 ArticuloEncontrados = contexto.articulo.Where(
-                    articulo => articulo.titulo_publicacion.ToLower().Contains(busqueda) || articulo.encabezado.ToLower().Contains(busqueda) || articulo.cuerpo.ToLower().Contains(busqueda)).ToList();
+                    articulo => 
+                        articulo.titulo_publicacion.ToLower()
+                            .Replace("á","a")
+                            .Replace("é","e")
+                            .Replace("í","i")
+                            .Replace("ó","o")
+                            .Replace("ú","u")
+                            .Contains(busqueda) 
+                        || articulo.encabezado.ToLower()
+                            .Replace("á","a")
+                            .Replace("é","e")
+                            .Replace("í","i")
+                            .Replace("ó","o")
+                            .Replace("ú","u")
+                            .Contains(busqueda) 
+                        || articulo.cuerpo.ToLower()
+                            .Replace("á","a")
+                            .Replace("é","e")
+                            .Replace("í","i")
+                            .Replace("ó","o")
+                            .Replace("ú","u")
+                            .Contains(busqueda))
+                    .ToList();
             }
             catch (NullReferenceException)
             {
